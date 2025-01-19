@@ -22,7 +22,7 @@ app.use('/api/user', userRouter);
 // Route handlers ------------- //
 
 // Attempt to create a connection to MongoDB
-mongoose.connect(DB_CONNECTION_STRING)
+mongoose.connect(DB_CONNECTION_STRING, { dbName: 'RFND' })
     .then(() => {
         console.log('Connected to MongoDB...');
     }).catch((err) => {

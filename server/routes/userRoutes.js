@@ -4,7 +4,7 @@ import { User } from '../models/User.js';
 const router = Router();
 
 // GET Route to fetch ALL users
-router.get('/users', async (req, res) => {
+router.get('/all', async (req, res) => {
     try {
         // Fetch all users from the database
         const users = await User.find(); 
@@ -19,7 +19,7 @@ router.get('/users', async (req, res) => {
 });
 
 // GET Route to fetch specific user
-router.get('/users/search', async (req, res) => {
+router.get('/find', async (req, res) => {
     const { name } = req.body; // Get 'user' from query string (e.g., /find-user?user=John Doe)
 
     if (!name) {
@@ -41,15 +41,15 @@ router.get('/users/search', async (req, res) => {
 });
 
 // POST Route to create a new user
-router.post('/users/create', async (req, res) => {
-    const { name, age } = req.body;
+router.post('/register', async (req, res) => {
+    const { name } = req.body;
 
-    if (!name || !age) {
-        return res.status(400).json({ message: "Both 'user' and 'age' are required" });
+    if (!name) {
+        return res.status(400).json({ message: "User name required" });
     }
 
     try {
-        const newUser = new User({ name, age });
+        const newUser = new User({ name });
         await newUser.save();
 
         res.status(201).json({ message: 'User created successfully', user: newUser });
